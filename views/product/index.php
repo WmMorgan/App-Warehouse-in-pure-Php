@@ -24,7 +24,9 @@ $this->title = "Список Продукции"
                 </tr>
                 </thead>
                 <tbody>
-                <?php foreach ($products as $i => $product): $i++;?>
+                <?php foreach ($products as $i => $product):
+                    $i += $per_page;
+                    $i++;?>
                 <tr>
                     <th scope="row"><?= $i ?></th>
                     <td><?= $product['category_id'] ?></td>
@@ -48,6 +50,7 @@ $this->title = "Список Продукции"
 
                 </tbody>
             </table>
+            <?= $pagination ?>
         </div>
     </div>
 </div>

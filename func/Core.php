@@ -11,7 +11,7 @@ abstract class Core
     public $err = [];
 
     public function __construct(
-        protected $db
+        protected $db = false
     )
     {
     }
@@ -30,6 +30,17 @@ abstract class Core
             $content = ob_get_clean();
             require_once 'views/layouts/' . $this->layout . '.php';
 
+        } else {
+            echo 'File not found: ' . $path;
+        }
+    }
+
+    public function renderPart($view, $vars = [])
+    {
+        extract($vars);
+        $path = 'views/' . strtolower($this->getClass()) . '/' . $view . '.php';
+        if (file_exists($path)) {
+            require_once $path;
         } else {
             echo 'File not found: ' . $path;
         }

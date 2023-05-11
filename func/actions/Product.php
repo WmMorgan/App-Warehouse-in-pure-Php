@@ -2,6 +2,7 @@
 
 namespace func\actions;
 
+use func\Pagination;
 use func\Session;
 
 class Product extends \func\Core
@@ -18,10 +19,18 @@ class Product extends \func\Core
 
     public function __invoke()
     {
-        $product = $this->getAll();
+        $page = $_GET['page'] ?? 1;
+        $per_page = 20;
+        $total = $this->countProducts();
+        $pagination = new Pagination((int)$page, $per_page, $total);
+        $start = $pagination->get_start();
 
+        $product = $this->getAll($start, $per_page);
+        $_per_page = $page < 2 ? 0 : ($per_page * $page) - $per_page;
         $this->render('index', [
-            'products' => $product
+            'products' => $product,
+            'pagination' => $pagination,
+            'per_page' => $_per_page
         ]);
     }
 
@@ -56,6 +65,16 @@ class Product extends \func\Core
         }
 
         $this->render('update');
+    }
+
+    public function view() {
+        if (!isset($_GET['id']) || !is_numeric($_GET['id']))
+            $this->redirect('product');
+
+        $product = $this->getOne($_GET['id']);
+        $this->render('view', [
+            'product' => $product
+        ]);
     }
 
     public function delete()
@@ -203,27 +222,50 @@ class Product extends \func\Core
         return $target;
     }
 
-    private function getAll() {
-        $sql = 'SELECT p.*, c.name as category_id
-        FROM `'.DBPREFIX.'product` as p LEFT JOIN `'.DBPREFIX.'category` as c ON 
-        p.category_id = c.id ORDER BY created_at DESC';
-        $stmt = $this->db->query($sql);
-        $all = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    /**
+     * @param $offset
+     * @param int $limit
+     * @return mixed
+     */
+    private function getAll($offset, $limit = 10) {
 
-        return $all;
+        $sql = 'SELECT p.*, c.name as category_id
+        FROM `'.DBPREFIX.'product` as p 
+        LEFT JOIN `'.DBPREFIX.'category` as c 
+        ON p.category_id = c.id ORDER BY created_at 
+        DESC LIMIT :offset, :limit';
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(":offset", $offset, \PDO::PARAM_INT);
+        $stmt->bindValue(":limit", $limit, \PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
     }
 
     private function getOne($id) {
 
         if ($this->oneProduct == null) {
-            $sql = 'SELECT *
-        FROM `'.DBPREFIX.'product` WHERE id = :id';
+            $sql = 'SELECT p.*, c.name as category_id
+        FROM `'.DBPREFIX.'product` as p 
+        LEFT JOIN `'.DBPREFIX.'category` as c 
+        ON p.category_id = c.id WHERE p.id = :id';
+
             $stmt = $this->db->prepare($sql);
             $stmt->execute([':id' => $id]);
             $this->oneProduct = $stmt->fetch(\PDO::FETCH_ASSOC);
         }
 
         return $this->oneProduct;
+    }
+
+    /**
+     * @return int
+     */
+    private function countProducts():int {
+        $sql = 'SELECT COUNT(*) FROM `'.DBPREFIX.'product` ';
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchColumn();
     }
 
     /**

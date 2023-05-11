@@ -294,7 +294,51 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
 <script src="/assets/js/main.js"></script>
+<script>
 
+    jQuery( document ).ready(function() {
+
+        function searchProduct(word) {
+            jQuery.ajax({
+                type: "POST",
+                url: "/coming/searchAjax",
+                data: {word: word},
+                success: function (response) {
+                    jQuery("#result").html(response);
+                },
+                error: function (exception, status, error) {
+                    if (exception.status == 404) {
+                        alert("error!");
+                    }
+                }
+            });
+        }
+
+        const source = document.getElementById('search');
+        const inputHandler = function(e) {
+            searchProduct(e.target.value);
+        }
+        source.addEventListener('input', inputHandler);
+        source.addEventListener('propertychange', inputHandler);
+
+    });
+
+    function addToComing(id) {
+        jQuery.ajax({
+            type: "POST",
+            url: "/coming/addToComingAjax",
+            data: {id: id},
+            success: function (response) {
+                jQuery("#resultComing").html(response);
+            },
+            error: function (exception, status, error) {
+            }
+        });
+    }
+
+
+
+</script>
 <!--  Chart js -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.7.3/dist/Chart.bundle.min.js"></script>
 
