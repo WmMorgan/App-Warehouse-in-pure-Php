@@ -7,7 +7,7 @@ $this->title = "Список Продукции"
         <div class="card-header">
             <strong class="card-title"><?= $this->title ?></strong>
             <div class="d-flex justify-content-end">
-            <a href="product/create" class="btn btn-success">Создать продукт</a>
+            <a href="/product/create" class="btn btn-success">Создать продукт</a>
             </div>
         </div>
         <div class="card-body">
@@ -17,6 +17,7 @@ $this->title = "Список Продукции"
                     <th scope="col">#</th>
                     <th scope="col">Категория</th>
                     <th scope="col">Называние</th>
+                    <th scope="col">Цена</th>
                     <th scope="col">Количество</th>
                     <th scope="col">Изображение</th>
                     <th scope="col">Создано в</th>
@@ -31,6 +32,7 @@ $this->title = "Список Продукции"
                     <th scope="row"><?= $i ?></th>
                     <td><?= $product['category_id'] ?></td>
                     <td><?= $product['name'] ?></td>
+                    <td><?= $product['price'] ?> UZS</td>
                     <td><?= $product['quantity'] ?> --- <b><?= $this->measures[$product['measure']] ?></b></td>
                     <td>
                        <?php if (!empty($product['image'])):?>

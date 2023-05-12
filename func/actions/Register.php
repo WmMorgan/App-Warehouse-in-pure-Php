@@ -7,8 +7,12 @@ use func\Session;
 
 class Register extends Core
 {
+    const NO_ACTIVE = 0;
+    const ACTIVE = 1;
 
     public $layout = 'guest';
+
+    protected function init() {}
 
     public function __invoke()
     {
@@ -33,7 +37,8 @@ class Register extends Core
 								:pass,
 								:salt,
 								"' . md5($salt) . '",
-								0
+								"'.self::NO_ACTIVE.'",
+								null
 								)';
 
             $stmt = $this->db->prepare($sql);
@@ -77,9 +82,10 @@ class Register extends Core
         {
             $email = $rows['login'];
 
-            $stmt = $this->db->prepare('UPDATE `'. DBPREFIX .'reg`
-				SET `status` = 1
+            $stmt = $this->db->prepare('UPDATE `'. DBPREFIX .'user`
+				SET `status` = :active
 				WHERE `login` = :email');
+            $stmt->bindValue(':active', self::ACTIVE, \PDO::PARAM_INT);
             $stmt->bindValue(':email', $email, \PDO::PARAM_STR);
             $stmt->execute();
 

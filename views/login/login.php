@@ -30,10 +30,10 @@ $this->title = 'Войти';
                     </label>
 
                 </div>
-                <button name="submit" type="submit" class="btn btn-success btn-flat m-b-30 m-t-30">Sign in</button>
+                <button name="submit" type="submit" class="btn btn-success btn-flat m-b-30 m-t-30">Войти</button>
 
                 <div class="register-link m-t-15 text-center">
-                    <p>Don't have account ? <a href="#"> Sign Up Here</a></p>
+                    <p>Нет аккаунта? <a href="/register"> Регистрации</a></p>
                 </div>
             </form>
         </div>

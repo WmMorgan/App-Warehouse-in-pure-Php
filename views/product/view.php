@@ -21,6 +21,10 @@ $this->title = "Посмотреть продукт";
                     <td><?= $product['category_id'] ?></td>
                 </tr>
                 <tr>
+                    <th scope="row">Цена</th>
+                    <td><?= $product['price'] ?> UZS</td>
+                </tr>
+                <tr>
                     <th scope="row">Количество</th>
                     <td><?= $product['quantity'] ?></td>
                 </tr>

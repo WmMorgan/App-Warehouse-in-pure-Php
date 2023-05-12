@@ -103,7 +103,7 @@ function run($db, $url = null)
     $classname = 'func\actions\\' . ucfirst($chpu[0]);
 
     if (class_exists($classname)) {
-        $class = new $classname($db);
+        $class = new $classname($db, $chpu);
 
         if (isset($chpu[1]) && !empty($chpu[1])) {
             $chpu1 = trim($chpu[1], '/');

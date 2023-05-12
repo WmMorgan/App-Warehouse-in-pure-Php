@@ -7,7 +7,7 @@ $this->title = "Список категории"
         <div class="card-header">
             <strong class="card-title"><?= $this->title ?></strong>
             <div class="d-flex justify-content-end">
-            <a href="category/create" class="btn btn-success">Создать категория</a>
+            <a href="/category/create" class="btn btn-success">Создать категория</a>
             </div>
         </div>
         <div class="card-body">

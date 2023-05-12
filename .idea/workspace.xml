@@ -3,10 +3,23 @@
   <component name="ChangeListManager">
     <list default="true" id="b02ff6ea-521b-48b3-9a07-f1d783129fc3" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/func/Component.php" beforeDir="false" afterPath="$PROJECT_DIR$/func/Component.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/func/Core.php" beforeDir="false" afterPath="$PROJECT_DIR$/func/Core.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/func/actions/Coming.php" beforeDir="false" afterPath="$PROJECT_DIR$/func/actions/Coming.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/func/actions/Index.php" beforeDir="false" afterPath="$PROJECT_DIR$/func/actions/Index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/func/actions/Login.php" beforeDir="false" afterPath="$PROJECT_DIR$/func/actions/Login.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/func/actions/Product.php" beforeDir="false" afterPath="$PROJECT_DIR$/func/actions/Product.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/func/actions/Register.php" beforeDir="false" afterPath="$PROJECT_DIR$/func/actions/Register.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/func/actions/Sklad.php" beforeDir="false" afterPath="$PROJECT_DIR$/func/actions/Sklad.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/func/function.php" beforeDir="false" afterPath="$PROJECT_DIR$/func/function.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/category/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/category/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/coming/_addToComingAjax.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/coming/_addToComingAjax.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/layouts/main.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/layouts/main.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/product/_form.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/product/_form.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/product/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/product/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/product/view.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/product/view.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/sklad/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/sklad/index.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,7 +71,8 @@
       <workItem from="1683526494393" duration="20641000" />
       <workItem from="1683614161990" duration="23215000" />
       <workItem from="1683701987911" duration="16157000" />
-      <workItem from="1683788889110" duration="15479000" />
+      <workItem from="1683788889110" duration="16115000" />
+      <workItem from="1683874856617" duration="13737000" />
     </task>
     <servers />
   </component>

@@ -6,8 +6,9 @@ use func\Core;
 
 class Login extends Core
 {
-
     public $layout = 'guest';
+
+    protected function init() {}
 
 
     public function __invoke()
@@ -39,17 +40,18 @@ class Login extends Core
                 $sql = 'SELECT * 
 				FROM `' . DBPREFIX . 'user`
 				WHERE `login` = :email
-				AND `status` = 1';
+				AND `status` = :status';
 
                 $stmt = $this->db->prepare($sql);
                 $stmt->bindValue(':email', $_POST['email'], \PDO::PARAM_STR);
+                $stmt->bindValue(':status', Register::ACTIVE, \PDO::PARAM_INT);
                 $stmt->execute();
 
                 $rows = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
                 if (count($rows) > 0) {
                     if (md5(md5($_POST['pass']) . $rows[0]['salt']) == $rows[0]['pass']) {
-                        $_SESSION['user'] = true;
+                        $_SESSION['user'] = $rows[0]['id'];
 
                         $this->redirect('');
                     } else

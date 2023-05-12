@@ -3,6 +3,7 @@
 namespace func\actions;
 
 use func\Core;
+use func\Session;
 
 class Coming extends Core
 {
@@ -20,6 +21,23 @@ class Coming extends Core
         ]);
 
     }
+
+    public function comingSave() {
+
+        if ($this->save($_POST)) {
+            $sql = 'UPDATE `' . DBPREFIX . 'product_coming`
+        SET status = :sts
+        WHERE status = :status';
+           $stmt = $this->db->prepare($sql);
+           $success = $stmt->execute([':sts' => self::CO_SUCCESS, ':status' => self::CO_LOAD]);
+           if ($success)
+               $this->session()->setFlash(Session::SUCCESS, "Приход товаров успешно выполнена.");
+               $this->redirect('coming');
+
+        }
+
+    }
+
 
     public function searchAjax()
     {
@@ -121,6 +139,32 @@ class Coming extends Core
      $stmt = $this->db->prepare($sql);
      $stmt->execute([':id' => $id]);
      return $stmt->fetch(\PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * @param array $data
+     * @return bool
+     */
+    private function save(array $data): bool
+    {
+        try {
+            $this->db->beginTransaction();
+            foreach ($data['coming'] as $k => $item) {
+                $sql = 'UPDATE `' . DBPREFIX . 'product`
+        SET quantity = quantity + :quantity,
+        price = :price
+        WHERE id = :id';
+                $stmt = $this->db->prepare($sql);
+                $stmt->execute([':quantity' => $item['quantity'], ':price' => $item['price'], ':id' => $k]);
+            }
+            $this->db->commit();
+            return true;
+
+        } catch (\PDOException $e) {
+            $this->db->rollBack();
+            die($e->getMessage());
+        }
+
     }
 
 }

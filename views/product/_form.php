@@ -4,7 +4,12 @@
         <input type="text" id="name" name="name" placeholder="Напишите.." value="<?= $this->old('name') ?>"
                class="form-control">
     </div>
-    <div class="form-group">
+    <div class="row form-group">
+        <div class="col col-md-4">
+            <label for="price" class="pr-1  form-control-label">Цена</label>
+            <input name="price" type="text" id="price" placeholder="например: 10000" class="form-control" value="<?= $this->old('price')?>">
+        </div>
+        <div class="col col-md-8">
         <label for="category_id" class="pr-1  form-control-label">Категория</label>
         <select name="category_id" id="select" class="form-control">
             <?php foreach ($this->getCategories() as $category): ?>
@@ -13,6 +18,7 @@
                     <?= $category['name']?></option>
             <?php endforeach; ?>
         </select>
+        </div>
     </div>
     <div class="row form-group">
         <div class="col col-md-4">

@@ -11,9 +11,39 @@ abstract class Core
     public $err = [];
 
     public function __construct(
-        protected $db = false
+        protected $db = false,
+        protected $chpu = false
     )
     {
+        $this->init();
+    }
+
+    protected function init()
+    {
+        if (!$this->isAuth()) {
+            $this->redirect('login');
+        }
+
+        $this->beforeActions();
+    }
+
+    /**
+     * return void
+     * Можно выполнит какое-то действие перед Экшенс
+     */
+    protected function beforeActions():void
+    {
+        // ****************************** | action | ********
+        $_chpy = isset($this->chpu[1]) ? $this->chpu[1] : false;
+        $actions = [
+            'update',
+            'delete',
+        ];
+        if (in_array($_chpy, $actions)) {
+            if (!$this->isAdmin())
+                include_once 'views/forbidden.php';
+
+        }
     }
 
     /**
@@ -51,7 +81,7 @@ abstract class Core
         header('Location:' . HOST . '/' . $to);
     }
 
-    public function getClass():string
+    public function getClass(): string
     {
         return (new \ReflectionClass($this))->getShortName();
     }

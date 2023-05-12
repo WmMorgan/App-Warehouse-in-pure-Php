@@ -20,7 +20,7 @@ class Product extends \func\Core
     public function __invoke()
     {
         $page = $_GET['page'] ?? 1;
-        $per_page = 20;
+        $per_page = 10;
         $total = $this->countProducts();
         $pagination = new Pagination((int)$page, $per_page, $total);
         $start = $pagination->get_start();
@@ -55,6 +55,7 @@ class Product extends \func\Core
         $_POST['name'] = $_POST['name'] ?? $product['name'];
         $_POST['category_id'] = $_POST['category_id'] ?? $product['category_id'];
         $_POST['quantity'] = $_POST['quantity'] ?? $product['quantity'];
+        $_POST['price'] = $_POST['price'] ?? $product['price'];
         $_POST['measure'] = $_POST['measure'] ?? $product['measure'];
         $_POST['image'] = $_POST['image'] ?? $product['image'];
 
@@ -107,6 +108,13 @@ class Product extends \func\Core
                 if (strlen($_POST['name']) > $this->nameLength)
                     $this->err[] = 'Длина Называния не должна превышать ' . $this->nameLength . ' символов.' . "\n";
             }
+            if (empty($_POST['price']))
+                $this->err[] = "Поле Цена не может быть пустым!";
+            else {
+                if ($_POST['price'] < 0)
+                    $this->err[] = "некорректный цена";
+            }
+
             if (!empty($_POST['quantity']) && $_POST['quantity'] < 0)
                 $this->err[] = "Количество товара не должно быть минус";
 
@@ -145,13 +153,14 @@ class Product extends \func\Core
         $image = $this->uploadImage();
 
         $sql = "INSERT INTO `" . DBPREFIX . "product`
-        (`name`, category_id, quantity, measure, image, created_at) VALUES 
-        (?, ?, ?, ?, ?, ?)";
+        (`name`, category_id, quantity, price, measure, image, created_at) VALUES 
+        (?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->db->prepare($sql);
         return $stmt->execute([
             $_POST['name'],
             $_POST['category_id'],
             $_POST['quantity'] ? $_POST['quantity'] : 0,
+            $_POST['price'],
             $_POST['measure'],
             $image,
             time()
@@ -170,6 +179,7 @@ class Product extends \func\Core
         SET name = :name,
         category_id = :category_id,
         quantity = :quantity,
+        price = :price,
         measure = :measure,
         image = :image
         WHERE id = :id';
@@ -178,6 +188,7 @@ class Product extends \func\Core
         SET name = :name,
         category_id = :category_id,
         quantity = :quantity,
+        price = :price,
         measure = :measure
         WHERE id = :id';
         }
@@ -187,6 +198,7 @@ class Product extends \func\Core
             ':name' => $_POST['name'],
             ':category_id' => $_POST['category_id'],
             ':quantity' => $_POST['quantity'],
+            ':price' => $_POST['price'],
             ':measure' => $_POST['measure'] ? $_POST['measure'] : 0,
             ':id' => $id
         ];

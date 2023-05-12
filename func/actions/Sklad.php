@@ -30,6 +30,7 @@ class Sklad extends \func\Core
     }
 
     public function update() {
+
         if (!isset($_GET['id']) || !is_numeric($_GET['id']))
             $this->redirect('sklad');
 
