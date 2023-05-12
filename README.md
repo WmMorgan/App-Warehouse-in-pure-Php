@@ -10,6 +10,10 @@ Install
 -------------------
 
 ```
+1. Загрузите sklad_na_php.sql в базу данных
+2. В файле /config.php соедените на базу
+
+Готова, Вы совершили чудо :D !
 
 - admin account:
     login: admin@gmail.com
