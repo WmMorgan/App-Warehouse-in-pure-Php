@@ -15,7 +15,7 @@ trait Component
 
     protected function isAuth(): mixed
     {
-        if (isset($_SESSION['user']) && $this->user())
+        if (isset($_SESSION['user']) && !empty($this->user()))
             return true;
 
         return false;
@@ -37,11 +37,11 @@ trait Component
         return true;
     }
 
-    protected function user()
+    public function user()
     {
         if ($this->user == null) {
             $sql = 'SELECT * FROM `' . DBPREFIX . 'user` WHERE id = :id';
-            $stmt = $this->db->prepare($sql);
+            $stmt = DB()->prepare($sql);
             $stmt->execute([':id' => $this->session()->get('user')]);
             $this->user = $stmt->fetch(\PDO::FETCH_ASSOC);
         }
