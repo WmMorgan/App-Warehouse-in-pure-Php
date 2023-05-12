@@ -10,7 +10,8 @@
  if(!defined('KEY'))
  {
      header("HTTP/1.1 404 Not Found");
-     exit(file_get_contents('./404.html'));
+     include_once __DIR__.'/views/404.php';
+     exit;
  }
 
  //Адрес базы данных

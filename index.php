@@ -28,6 +28,6 @@ try {
     run($db, $url);
 
 } catch (Exception $e) {
-    die($e->getMessage());
+//    die($e->getMessage());
     include_once 'views/404.php';
 }
